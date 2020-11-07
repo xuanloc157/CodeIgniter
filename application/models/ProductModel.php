@@ -31,4 +31,36 @@ class ProductModel extends CI_Model
 
                 return $this->db->insert('product', $data);
         }
+        public function getReview($slug = FALSE)
+        {
+                if ($slug === FALSE)
+                {
+                        return null;
+                }
+                $this->db->where('productId', $slug);
+                $query = $this->db->get('review');
+                return $query->result_array();
+        }
+        public function edit($slug = FALSE) {
+                if ($slug === FALSE) {
+                        return null;
+                }
+                else {
+                        $this->load->helper('url');
+                        $data = array(
+                                'name' => $this->input->post('name'),
+                                'price' => $this->input->post('price'),
+                                'title' => $this->input->post('title')
+                        );
+                        $this->db->where('ID', $slug);
+                        return $this->db->update('product', $data);
+                }
+        }
+        public function delete($slug = FALSE){
+               $this->db->delete('product', array('ID' => $slug));
+        }
+        public function deletereview($slug = FALSE){
+                $this->db->delete('review', array('id' => $slug));
+        }
+
 }

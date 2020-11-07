@@ -6,12 +6,14 @@ class UserModel extends CI_Model
     {
         $this->load->database();
     }
-    public function login($username = FALSE, $password = FALSE)
+    public function login()
     {
-        $query = $this->db->$this->db->get_where('user', array('username' => $username, 'password' => $password));
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+        $query = $this->db->query("SELECT * FROM user WHERE username = '" . $username . "' AND password = '" . $password . "'");
         $data['user'] = $query->result_array();
 
-        if (empty($data['user']))
+        if (!empty($data['user']))
         {
             $data['access'] = true;
             return $data;
@@ -21,5 +23,18 @@ class UserModel extends CI_Model
             return $data;
         }
 
+    }
+    public function register(){
+        $this->load->helper('url');
+
+        //$slug = url_title($this->input->post('title'), 'dash', TRUE);
+
+        $data = array(
+                'username' => strtolower($this->input->post('username')),
+                'password' => $this->input->post('password'),
+                'permission' => $this->input->post('permission')
+        );
+
+        return $this->db->insert('user', $data);
     }
 }

@@ -52,8 +52,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['product/create'] = 'Product/create';
-
+$route['product/delete/'] = 'Product/delete/$1';
+$route['product/deleterev'] = 'Product/deleterev/$1';
+$route['product/edit'] = 'Product/edit/$1';
+$route['user/login'] = 'User/login';
+$route['user/logout'] = 'User/logout';
+$route['user/regiter'] = 'User/regiter';
+$route['login'] = 'User/login';
 $route['product/(:any)'] = 'Product/view/$1';
 $route['product'] = 'Product/index';
 $route['(:any)'] = 'pages/view/$1';
-$route['default_controller'] = 'Product';
+$route['default_controller'] = 'User/login';
